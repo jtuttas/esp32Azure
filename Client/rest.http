@@ -1,0 +1,14 @@
+POST http://192.168.178.86/rpc/App.SetState HTTP/1.1
+Content-Type: application/json
+
+{ 
+    "state": 0
+}
+
+###
+POST http://192.168.178.86/rpc/App.GetTemp HTTP/1.1
+Content-Type: application/json
+
+{ 
+    "device": 0 
+}

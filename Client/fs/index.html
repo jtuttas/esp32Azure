@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ESP32</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="jumbotron">
+    <h1>ESP32</h1>
+    <h2>Temperature is
+      <span id="temp">?</span>°C
+    </h2>
+  </div>
+  <button id="ein" type="button" class="btn btn-danger">Ein</button>
+  <button id="aus" type="button" class="btn btn-warning">Aus</button>
+  <script>
+    $("#ein").click(function (e) {
+      $.post('/rpc/App.SetState', JSON.stringify({ "state": 1 }));
+    });
+    $("#aus").click(function (e) {
+      $.post('/rpc/App.SetState', JSON.stringify({ "state": 0 }));
+    });
+
+    $(document).ready(function () {
+      console.log('Document Ready');
+      $.ajax({
+        url: "/rpc/App.GetTemp",
+        type: "POST",
+        data: JSON.stringify({ device: 0 }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+          console.log('success:'+JSON.stringify(data));
+          $("#temp").text(data.temp);
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>

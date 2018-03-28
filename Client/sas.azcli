@@ -1,0 +1,6 @@
+az extension show --name azure-cli-iot-ext
+az extension add --name azure-cli-iot-ext
+az iot hub generate-sas-token --hub-name TuttasHub  --device-id esp32_35D9D4 
+
+
+
